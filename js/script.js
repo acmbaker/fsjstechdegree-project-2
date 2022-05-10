@@ -19,7 +19,9 @@ This function will create and insert/append the elements needed to display a "pa
 */
 let itemsperpage = 9;
 
+//Displaying a page
 function showPage(list, page) {
+   //declaring variables
    let numberofbuttons = Math.ceil(list.length / itemsperpage);
    let sl = document.querySelector('ul.student-list');
    let startindex = (page * itemsperpage) - itemsperpage;
@@ -35,6 +37,7 @@ function showPage(list, page) {
 
    sl.innerHTML = '';
 
+   //for loop based on how many entries are in the list
    if ( list.length >= 1 ) {
       for (let i = startindex; i < endindex; i++) {
          html += `
@@ -61,6 +64,7 @@ Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
 
+//Pagination buttons
 function addPagination(list) {
    let numberofbuttons = Math.ceil(list.length / itemsperpage);
 
@@ -97,14 +101,14 @@ function addPagination(list) {
    });
 }
 
- //The search component function.
+ //The search component function - exceeded expactions feature.
  function searchFilter() {
    let searchbox = document.querySelector('header.header');
    let html = `
    <label for="search" class="student-search">
       <span>Search by name</span>
-      <input id="search" placeholder="Search by name...">
-      <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+      <input id="search" placeholder="Search by name..." style="border:none;">
+      <button type="button" style="background:rgba(0, 0, 0, 0.2)!important;border:none;"><img src="img/icn-search.svg" alt="Search icon"></button>
    </label>`;
    searchbox.insertAdjacentHTML('beforeend', html);
 
@@ -134,11 +138,9 @@ function addPagination(list) {
          }
       }
    let final = datalist.map(x=>data[x]);
+   //Add pagination for search results.
    addPagination(final);
 }
-
-//Call background styling from: https://1stwebdesigner.com/15-css-background-effects/
-document.querySelector('body');
 
 // Call functions
 addPagination(data);
