@@ -83,7 +83,7 @@ function addPagination(list) {
          currentactive = currentactive.classList.remove('active');
          pageclicker.classList.add("active");
          let pagenumber = pageclicker.textContent;
-         showPage(data, pagenumber);
+         showPage(list, pagenumber);
       }
    });
 }
@@ -113,7 +113,7 @@ function addPagination(list) {
       }
 
       //THIS PART HERE, rerunning the pagination / page display. The console log displays the correct one, however, it doesn't pass into the function correctly.
-      const final = datalist.map(x=>data[x]);
+      let final = datalist.map(x=>data[x]);
       console.log(final);
       addPagination(final);
    });
