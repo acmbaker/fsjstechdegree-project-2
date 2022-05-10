@@ -112,7 +112,7 @@ function addPagination(list) {
          }
       }
 
-      //found this single line of code from stack overflow
+      //THIS PART HERE, rerunning the pagination / page display. The console log displays the correct one, however, it doesn't pass into the function correctly.
       const final = datalist.map(x=>data[x]);
       console.log(final);
       addPagination(final);
