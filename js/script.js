@@ -24,6 +24,8 @@ function showPage(list, page) {
    let sl = document.querySelector('ul.student-list');
    let startindex = (page * itemsperpage) - itemsperpage;
    let endindex = page * itemsperpage;
+   let maintitle = document.querySelector('header > h2');
+   maintitle.style.color = '#fff';
    let html = '';
    let pageno = parseInt(page);
 
@@ -33,19 +35,24 @@ function showPage(list, page) {
 
    sl.innerHTML = '';
 
-   for (let i = startindex; i < endindex; i++) {
-      html += `
-      <li class="student-item cf">
-         <div class="student-details">
-            <img class="avatar" src="${data[i].picture.thumbnail}" alt="Profile Picture">
-            <h3>${data[i].name.title} ${data[i].name.first} ${data[i].name.last}</h3>
-            <span class="email">${data[i].email}</span>
-         </div>
-         <div class="joined-details">
-            <span class="date">${data[i].registered.date}</span>
-         </div>
-      </li>`;
-   }
+   if ( list.length >= 1 ) {
+      for (let i = startindex; i < endindex; i++) {
+         html += `
+         <li class="student-item cf">
+            <div class="student-details">
+               <img class="avatar" src="${list[i].picture.thumbnail}" alt="Profile Picture">
+               <h3>${list[i].name.title} ${list[i].name.first} ${list[i].name.last}</h3>
+               <span class="email">${list[i].email}</span>
+            </div>
+            <div class="joined-details">
+               <span class="date">${list[i].registered.date}</span>
+            </div>
+         </li>`;
+      }
+   }  else if ( list.length === 0 ){
+         html = `<h2 style="text-align:center;color:#fff;">Nothing to see here. Try again.</h2>`;
+      }
+
    sl.insertAdjacentHTML('beforeend', html);
 }
 
@@ -67,14 +74,16 @@ function addPagination(list) {
    for (let i = 0; i < numberofbuttons; i++) {
       html += `
          <li>
-            <button type="button">${i+1}</button>
+            <button type="button" style="margin-bottom:20px;color: #fff;background-color:rgba(0, 0, 0, 0.2);">${i+1}</button>
          </li>
          `;
    }
    linklist.insertAdjacentHTML('beforeend', html);
 
-   let firstbutton = document.querySelector('li > button');
-   firstbutton.classList.add("active");
+   if ( list.length >= 1) {
+      let firstbutton = document.querySelector('li > button');
+      firstbutton.classList.add("active");
+   }
 
    linklist.addEventListener('click', (e) => {
       let pageclicker = e.target;
@@ -88,8 +97,7 @@ function addPagination(list) {
    });
 }
 
- // The search component function.
-
+ //The search component function.
  function searchFilter() {
    let searchbox = document.querySelector('header.header');
    let html = `
@@ -100,7 +108,21 @@ function addPagination(list) {
    </label>`;
    searchbox.insertAdjacentHTML('beforeend', html);
 
+   let searchbutton = document.querySelector('header.header > label > button');
+   
+   let entry = document.querySelector('input');
+   let evalue = entry.value;
+   searchbutton.addEventListener('click', (e) => {
+      searcher();
+   });
+
    searchbox.addEventListener('keyup', (e) => {
+      searcher();
+   });
+ }
+
+//So I didn't have to write the 2 x add event listener code.
+ function searcher() {
       let entry = document.querySelector('input');
       let evalue = entry.value;
       evalue = evalue.toUpperCase();
@@ -108,16 +130,15 @@ function addPagination(list) {
       for (let i = 0; i < data.length; i++) {
          let filter = data[i].name.first;
          if (filter.toUpperCase().indexOf(evalue) > -1) {
-            datalist.push(i);
+         datalist.push(i);
          }
       }
+   let final = datalist.map(x=>data[x]);
+   addPagination(final);
+}
 
-      //THIS PART HERE, rerunning the pagination / page display. The console log displays the correct one, however, it doesn't pass into the function correctly.
-      let final = datalist.map(x=>data[x]);
-      console.log(final);
-      addPagination(final);
-   });
- }
+//Call background styling from: https://1stwebdesigner.com/15-css-background-effects/
+document.querySelector('body');
 
 // Call functions
 addPagination(data);

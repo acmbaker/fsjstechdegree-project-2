@@ -5,12 +5,29 @@
 * {
 	box-sizing: border-box;
 }
-
+/* Small body background colour changer from: https://codepen.io/P1N2O/pen/pyBNzX */
 body {
-	font-family: 'Montserrat', Helvetica, sans-serif;
-	background-color: rgb(229, 238, 250);
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  height: 100vh;
+  font-family: 'Montserrat', Helvetica, sans-serif;
   transition: 0.4s;
 }
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* End of small additions, start of original code */
 
 ul {
   margin: 0;
@@ -168,7 +185,7 @@ header h2 {
 }
 
 .pagination li button.active, .pagination li button:hover {
-  background-color: #1e90ff;
+  background-color: #1e90ff!important;
   color: #fff;
 }
 
