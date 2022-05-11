@@ -18,6 +18,7 @@ Create the `showPage` function
 This function will create and insert/append the elements needed to display a "page" of nine students
 */
 let itemsPerPage = 9;
+let clicked = 0;
 
 //Displaying a page
 function showPage(list, page) {
@@ -37,8 +38,9 @@ function showPage(list, page) {
 
    studentList.innerHTML = '';
 
-   console.log("Index button clicked!");
-   console.log("Current startindex value: ", startIndex);
+  console.log("Index button clicked! Click count: ", clicked);
+  clicked++;
+  console.log("Current startindex value: ", startIndex);
 
    //for loop based on how many entries are in the list
    if ( list.length >= 1 ) {
@@ -71,8 +73,6 @@ This function will create and insert/append the elements needed for the paginati
 //Pagination buttons
 function addPagination(list) {
    let numberOfButtons = Math.ceil(list.length / itemsPerPage);
-
-   showPage(list, 1);
 
    let linkList = document.querySelector('ul.link-list');
    let html = '';
@@ -145,5 +145,6 @@ function addPagination(list) {
 }
 
 // Call functions
+showPage(data,1);
 addPagination(data);
 searchFilter();
