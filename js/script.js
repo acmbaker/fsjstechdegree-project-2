@@ -79,10 +79,10 @@ function addPagination(list) {
 
    linkList.innerHTML = '';
 
-   for (let i = 0; i < numberOfButtons; i++) {
+   for (let i = 1; i <= numberOfButtons; i++) {
       html += `
          <li>
-            <button type="button" style="margin-bottom:20px;color: #fff;background-color:rgba(0, 0, 0, 0.2);">${i+1}</button>
+            <button type="button" style="margin-bottom:20px;color: #fff;background-color:rgba(0, 0, 0, 0.2);">${i}</button>
          </li>
          `;
    }
@@ -105,27 +105,27 @@ function addPagination(list) {
    });
 }
 
- //The search component function - exceeded expactions feature.
- function searchFilter() {
-   let searchBox = document.querySelector('header.header');
-   let html = `
+//The search component function - exceeded expactions feature.
+function appendSearchBar() {
+  let searchBox = document.querySelector("header.header");
+  let html = `
    <label for="search" class="student-search">
       <span>Search by name</span>
       <input id="search" placeholder="Search by name..." style="border:none;">
       <button type="button" style="background:rgba(0, 0, 0, 0.2)!important;border:none;"><img src="img/icn-search.svg" alt="Search icon"></button>
    </label>`;
-   searchBox.insertAdjacentHTML('beforeend', html);
+  searchBox.insertAdjacentHTML("beforeend", html);
 
-   let searchButton = document.querySelector('header.header > label > button');
-   
-   searchButton.addEventListener('click', (e) => {
-      searcher();
-   });
+  let searchButton = document.querySelector("header.header > label > button");
 
-   searchBox.addEventListener('keyup', (e) => {
-      searcher();
-   });
- }
+  searchButton.addEventListener("click", (e) => {
+    searchFunction();
+  });
+
+  searchBox.addEventListener("keyup", (e) => {
+    searchFunction();
+  });
+}
 
 //So I didn't have to write the 2 x add event listener code.
  function searcher() {
@@ -139,7 +139,9 @@ function addPagination(list) {
          dataList.push(i);
          }
       }
+
    let final = dataList.map(x=>data[x]);
+   console.log(final);
    //Add pagination for search results.
    addPagination(final);
 }
@@ -147,4 +149,4 @@ function addPagination(list) {
 // Call functions
 addPagination(data);
 showPage(data,1);
-searchFilter();
+appendSearchBar();
