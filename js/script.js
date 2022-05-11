@@ -77,7 +77,7 @@ function addPagination(list) {
    }
    linkList.insertAdjacentHTML('beforeend', html);
 
-   if ( list.length >= 1) {
+   if ( list.length >= 1 ) {
       let firstButton = document.querySelector('li > button');
       firstButton.classList.add("active");
    }
