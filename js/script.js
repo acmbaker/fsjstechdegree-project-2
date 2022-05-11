@@ -128,25 +128,22 @@ function appendSearchBar() {
 }
 
 //So I didn't have to write the 2 x add event listener code.
- function searcher() {
-      let entry = document.querySelector('input');
-      let evalue = entry.value;
-      evalue = evalue.toUpperCase();
-      let dataList = [];
-      for (let i = 0; i < data.length; i++) {
-         let filter = data[i].name.first;
-         if (filter.toUpperCase().indexOf(evalue) > -1) {
-         dataList.push(i);
-         }
-      }
-
-   let final = dataList.map(x=>data[x]);
-   console.log(final);
-   //Add pagination for search results.
-   addPagination(final);
+function searchFunction() {
+  let entry = document.querySelector("input");
+  let searchTerm = entry.value;
+  searchTerm = searchTerm.toUpperCase();
+  let dataList = [];
+  for (let i = 0; i < data.length; i++) {
+    let firstName = data[i].name.first;
+    if (firstName.toUpperCase().includes(searchTerm)) {
+      dataList.push(data[i]);
+    }
+  }
+  showPage(dataList, 1);
+  addPagination(dataList);
 }
 
 // Call functions
-addPagination(data);
 showPage(data,1);
+addPagination(data);
 appendSearchBar();
