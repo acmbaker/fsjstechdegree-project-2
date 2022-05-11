@@ -17,29 +17,29 @@ For assistance:
 Create the `showPage` function
 This function will create and insert/append the elements needed to display a "page" of nine students
 */
-let itemsperpage = 9;
+let itemsPerPage = 9;
 
 //Displaying a page
 function showPage(list, page) {
    //declaring variables
-   let numberofbuttons = Math.ceil(list.length / itemsperpage);
-   let sl = document.querySelector('ul.student-list');
-   let startindex = (page * itemsperpage) - itemsperpage;
-   let endindex = page * itemsperpage;
-   let maintitle = document.querySelector('header > h2');
-   maintitle.style.color = '#fff';
+   let numberOfButtons = Math.ceil(list.length / itemsPerPage);
+   let studentList = document.querySelector('ul.student-list');
+   let startIndex = (page * itemsPerPage) - itemsPerPage;
+   let endIndex = page * itemsPerPage;
+   let mainTitle = document.querySelector('header > h2');
+   mainTitle.style.color = '#fff';
    let html = '';
-   let pageno = parseInt(page);
+   let pageNo = parseInt(page);
 
-   if (pageno === numberofbuttons) {
-      endindex = list.length;
+   if (pageNo === numberOfButtons) {
+      endIndex = list.length;
    }
 
-   sl.innerHTML = '';
+   studentList.innerHTML = '';
 
    //for loop based on how many entries are in the list
    if ( list.length >= 1 ) {
-      for (let i = startindex; i < endindex; i++) {
+      for (let i = startIndex; i < endIndex; i++) {
          html += `
          <li class="student-item cf">
             <div class="student-details">
@@ -56,7 +56,7 @@ function showPage(list, page) {
          html = `<h2 style="text-align:center;color:#fff;">Nothing to see here. Try again.</h2>`;
       }
 
-   sl.insertAdjacentHTML('beforeend', html);
+   studentList.insertAdjacentHTML('beforeend', html);
 }
 
 /*
@@ -66,61 +66,61 @@ This function will create and insert/append the elements needed for the paginati
 
 //Pagination buttons
 function addPagination(list) {
-   let numberofbuttons = Math.ceil(list.length / itemsperpage);
+   let numberOfButtons = Math.ceil(list.length / itemsPerPage);
 
    showPage(list, 1);
 
-   let linklist = document.querySelector('ul.link-list');
+   let linkList = document.querySelector('ul.link-list');
    let html = '';
 
-   linklist.innerHTML = '';
+   linkList.innerHTML = '';
 
-   for (let i = 0; i < numberofbuttons; i++) {
+   for (let i = 0; i < numberOfButtons; i++) {
       html += `
          <li>
             <button type="button" style="margin-bottom:20px;color: #fff;background-color:rgba(0, 0, 0, 0.2);">${i+1}</button>
          </li>
          `;
    }
-   linklist.insertAdjacentHTML('beforeend', html);
+   linkList.insertAdjacentHTML('beforeend', html);
 
    if ( list.length >= 1) {
-      let firstbutton = document.querySelector('li > button');
-      firstbutton.classList.add("active");
+      let firstButton = document.querySelector('li > button');
+      firstButton.classList.add("active");
    }
 
-   linklist.addEventListener('click', (e) => {
-      let pageclicker = e.target;
-      if (pageclicker.tagName === 'BUTTON') {
-         let currentactive = document.querySelector('.active');
-         currentactive = currentactive.classList.remove('active');
-         pageclicker.classList.add("active");
-         let pagenumber = pageclicker.textContent;
-         showPage(list, pagenumber);
+   linkList.addEventListener('click', (e) => {
+      let pageClicker = e.target;
+      if (pageClicker.tagName === 'BUTTON') {
+         let currentActive = document.querySelector('.active');
+         currentActive = currentActive.classList.remove('active');
+         pageClicker.classList.add("active");
+         let pageNumber = pageClicker.textContent;
+         showPage(list, pageNumber);
       }
    });
 }
 
  //The search component function - exceeded expactions feature.
  function searchFilter() {
-   let searchbox = document.querySelector('header.header');
+   let searchBox = document.querySelector('header.header');
    let html = `
    <label for="search" class="student-search">
       <span>Search by name</span>
       <input id="search" placeholder="Search by name..." style="border:none;">
       <button type="button" style="background:rgba(0, 0, 0, 0.2)!important;border:none;"><img src="img/icn-search.svg" alt="Search icon"></button>
    </label>`;
-   searchbox.insertAdjacentHTML('beforeend', html);
+   searchBox.insertAdjacentHTML('beforeend', html);
 
-   let searchbutton = document.querySelector('header.header > label > button');
+   let searchButton = document.querySelector('header.header > label > button');
    
    let entry = document.querySelector('input');
    let evalue = entry.value;
-   searchbutton.addEventListener('click', (e) => {
+   searchButton.addEventListener('click', (e) => {
       searcher();
    });
 
-   searchbox.addEventListener('keyup', (e) => {
+   searchBox.addEventListener('keyup', (e) => {
       searcher();
    });
  }
@@ -130,14 +130,14 @@ function addPagination(list) {
       let entry = document.querySelector('input');
       let evalue = entry.value;
       evalue = evalue.toUpperCase();
-      let datalist = [];
+      let dataList = [];
       for (let i = 0; i < data.length; i++) {
          let filter = data[i].name.first;
          if (filter.toUpperCase().indexOf(evalue) > -1) {
-         datalist.push(i);
+         dataList.push(i);
          }
       }
-   let final = datalist.map(x=>data[x]);
+   let final = dataList.map(x=>data[x]);
    //Add pagination for search results.
    addPagination(final);
 }
