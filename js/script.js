@@ -19,34 +19,22 @@ This function will create and insert/append the elements needed to display a "pa
 */
 let itemsPerPage = 9;
 let clicked = 0;
+let studentList = document.querySelector('ul.student-list');
+let mainTitle = document.querySelector("header > h2");
+mainTitle.style.color = '#fff';
 
 //Displaying a page
 function showPage(list, page) {
    //declaring variables
-   let numberOfButtons = Math.ceil(list.length / itemsPerPage);
-   let studentList = document.querySelector('ul.student-list');
    let startIndex = (page * itemsPerPage) - itemsPerPage;
    let endIndex = page * itemsPerPage;
-   let mainTitle = document.querySelector('header > h2');
-   mainTitle.style.color = '#fff';
-   let html = '';
-   let pageNo = parseInt(page);
-
-   if (pageNo === numberOfButtons) {
-      endIndex = list.length;
-   }
 
    studentList.innerHTML = '';
 
-  console.log("Index button clicked! Click count: ", clicked);
-  clicked++;
-  console.log("Current startindex value: ", startIndex);
-
    //for loop based on how many entries are in the list
-   if ( list.length >= 1 ) {
-      for (let i = startIndex; i < endIndex; i++) {
-         console.log("Current i value in loop: ", list[i]);
-         html += `
+  for (let i = 0; i < list.length; i++) {
+    if (i >= startIndex && i < endIndex) {
+      let html = `
          <li class="student-item cf">
             <div class="student-details">
                <img class="avatar" src="${list[i].picture.thumbnail}" alt="Profile Picture">
@@ -57,12 +45,13 @@ function showPage(list, page) {
                <span class="date">${list[i].registered.date}</span>
             </div>
          </li>`;
-      }
-   }  else if ( list.length === 0 ){
-         html = `<h2 style="text-align:center;color:#fff;">Nothing to see here. Try again.</h2>`;
-      }
-
-   studentList.insertAdjacentHTML('beforeend', html);
+      studentList.insertAdjacentHTML("beforeend", html);
+    }
+  }
+   if (list.length === 0) {
+      let html = `<h2 style="text-align:center;color:#fff;">Nothing to see here. Try again.</h2>`;
+      studentList.insertAdjacentHTML("beforeend", html);
+   }
 }
 
 /*
