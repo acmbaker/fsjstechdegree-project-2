@@ -37,9 +37,13 @@ function showPage(list, page) {
 
    studentList.innerHTML = '';
 
+   console.log("Index button clicked!");
+   console.log("Current startindex value: ", startIndex);
+
    //for loop based on how many entries are in the list
    if ( list.length >= 1 ) {
       for (let i = startIndex; i < endIndex; i++) {
+         console.log("Current i value in loop: ", list[i]);
          html += `
          <li class="student-item cf">
             <div class="student-details">
@@ -114,8 +118,6 @@ function addPagination(list) {
 
    let searchButton = document.querySelector('header.header > label > button');
    
-   let entry = document.querySelector('input');
-   let evalue = entry.value;
    searchButton.addEventListener('click', (e) => {
       searcher();
    });
